@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7c8c8bc6-d172-4814-9732-ba8793aedff4",
+		"_postman_id": "b543fa46-0dd9-4381-b50c-81327a86a4c8",
 		"name": "Create and change task iterations",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_uid": "3431373-7c8c8bc6-d172-4814-9732-ba8793aedff4"
+		"_uid": "18927542-b543fa46-0dd9-4381-b50c-81327a86a4c8"
 	},
 	"item": [
 		{
@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "317e6091-ac33-4e75-b88c-aead74bc40f9",
+						"id": "f2e61aff-e8c2-482a-b3b2-8d58c859e8cb",
 						"exec": [
 							"let jsonData = pm.response.json();",
 							"pm.environment.set('token', jsonData.id_token)"
@@ -21,7 +21,7 @@
 					}
 				}
 			],
-			"id": "000d5bce-1fbe-4442-bb9b-5c896289170d",
+			"id": "8b23318b-232b-474a-a860-e91fd4ef37d5",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -111,7 +111,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "235f919d-8a50-4dad-a4db-3507b6dac55a",
+						"id": "f5e6df8e-4284-4e83-9425-52dd23300db4",
 						"exec": [
 							"let currentAmountOfTasks = pm.response.json().length;",
 							"console.log(pm.response.json().length)",
@@ -120,25 +120,27 @@
 							"pm.environment.set(\"ids\", [])",
 							"",
 							"if(currentAmountOfTasks < pm.environment.get('targetNumberOfTasks')) {",
-							"    postman.setNextRequest('create a task')",
+							"    pm.execution.setNextRequest('create a task')",
 							"} else {",
-							"    postman.setNextRequest('change task text')}"
+							"    pm.execution.setNextRequest('change task text')}"
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				},
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "a3b0ae78-2bad-4037-a331-da3cea4acf58",
+						"id": "1f34415a-048c-4dc2-8463-dda9a2f24c38",
 						"exec": [
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
-			"id": "43a438c7-4c79-44d0-848b-a251515ced36",
+			"id": "7dca368c-a03c-45f1-b794-8c9eb68c285d",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -182,7 +184,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "47eb0efe-9d81-4616-b88e-6e54e79610b8",
+						"id": "786e1681-2194-465f-8798-828353e3da46",
 						"exec": [
 							"let jsonData = pm.response.json();",
 							"",
@@ -203,17 +205,18 @@
 							"pm.environment.set('currentAmountOfTasks', currentAmountOfTasks)",
 							"",
 							"if(currentAmountOfTasks < pm.environment.get('targetNumberOfTasks')) {",
-							"    postman.setNextRequest(\"create a task\")",
+							"    pm.execution.setNextRequest(\"create a task\")",
 							"} else {",
-							"    postman.setNextRequest('change task text')",
+							"    pm.execution.setNextRequest('change task text')",
 							"}",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
-			"id": "1e3dbd12-d8d7-4ca1-9a81-e38c05cb2eab",
+			"id": "b7148dd6-857e-4654-a4b8-7a60bc0826af",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -255,7 +258,7 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "39e2b88c-58d2-4c0a-b861-1e21219d08eb",
+						"id": "9da28a1d-a589-4cdc-9216-7da7db6697de",
 						"exec": [
 							""
 						],
@@ -263,7 +266,7 @@
 					}
 				}
 			],
-			"id": "32e03ff6-baea-465b-a2e2-3a97c70939ce",
+			"id": "9ad2a14f-ff8a-489b-b8f4-44d41f43e3d7",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -306,13 +309,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a67eb558-5ffd-4c07-9a1c-9dc647995d0a",
+						"id": "8ced7c07-19f3-4590-813c-172b2750e1be",
 						"exec": [
 							"let arr = pm.environment.get('ids')",
 							"",
 							"arr.forEach((id)=>{",
 							"    pm.sendRequest(",
-							"        {url: `https://sqlverifier-50d286d70656.herokuapp.com/api/tasks/${id}`,",
+							"        {url: `https://sqlverifier-live-6e21ca0ed768.herokuapp.com/api/tasks/${id}`,",
 							"        method: 'DELETE',",
 							"        header:",
 							"        {'Authorization': 'Bearer ' + pm.environment.get('token'),",
@@ -322,17 +325,19 @@
 							"        console.log(response);",
 							"    });",
 							"})",
+							"//pm.environment.unset(\"token\");",
 							"",
 							"",
 							"",
 							"",
 							""
 						],
-						"type": "text/javascript"
+						"type": "text/javascript",
+						"packages": {}
 					}
 				}
 			],
-			"id": "3f9de192-3f64-45fa-8cd2-68c9041fce4b",
+			"id": "2fc323ff-5180-41e4-b46d-8b05c0bbe112",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -376,7 +381,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "a565044a-0e9e-4dc2-8e8f-13f3573a4c5d",
+				"id": "57275865-3d97-4caf-bc21-6632264a5b57",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -386,7 +391,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "006424dc-5fee-4e73-b440-1c4203f89177",
+				"id": "75639c55-e91b-46f6-929a-0b300f9010b9",
 				"type": "text/javascript",
 				"exec": [
 					""
