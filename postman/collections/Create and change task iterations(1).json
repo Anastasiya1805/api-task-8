@@ -206,7 +206,9 @@
 							"",
 							"if(currentAmountOfTasks < pm.environment.get('targetNumberOfTasks')) {",
 							"    pm.execution.setNextRequest(\"create a task\")",
-							"} else {",
+							"} else if (ids.length > 0){",
+							"    let lastTask = ids[ids.length - 1]",
+							"    pm.environment.set(\"currentTask\", lastTask)",
 							"    pm.execution.setNextRequest('change task text')",
 							"}",
 							""
