@@ -122,7 +122,12 @@
 							"if(currentAmountOfTasks < pm.environment.get('targetNumberOfTasks')) {",
 							"    pm.execution.setNextRequest('create a task')",
 							"} else {",
-							"    pm.execution.setNextRequest('change task text')}"
+							"    pm.environment.set(\"lastID\",pm.response.json()[currentAmountOfTasks - 1].id)",
+							"    let ids = [];",
+							"    ids.push(pm.environment.get(\"lastID\"))",
+							"    pm.environment.set(\"ids\", ids)",
+							"    pm.execution.setNextRequest('change task text')",
+							"    }"
 						],
 						"type": "text/javascript",
 						"packages": {}
@@ -157,7 +162,7 @@
 					}
 				],
 				"url": {
-					"raw": "{{baseUrl}}/tasks?page=0&size=100",
+					"raw": "{{baseUrl}}/tasks?page=0&size=1000",
 					"host": [
 						"{{baseUrl}}"
 					],
@@ -171,7 +176,7 @@
 						},
 						{
 							"key": "size",
-							"value": "100"
+							"value": "1000"
 						}
 					]
 				}
@@ -188,10 +193,6 @@
 						"exec": [
 							"let jsonData = pm.response.json();",
 							"",
-							"pm.test(\"Your test name\", function () {",
-							"    pm.expect(jsonData.text).to.eql(\"some text\");",
-							"});",
-							"",
 							"const ids = pm.environment.get(\"ids\")",
 							"console.log(\"jsonData.id is \" + jsonData.id)",
 							"ids.push(jsonData.id)",
@@ -206,9 +207,7 @@
 							"",
 							"if(currentAmountOfTasks < pm.environment.get('targetNumberOfTasks')) {",
 							"    pm.execution.setNextRequest(\"create a task\")",
-							"} else if (ids.length > 0){",
-							"    let lastTask = ids[ids.length - 1]",
-							"    pm.environment.set(\"currentTask\", lastTask)",
+							"} else {",
 							"    pm.execution.setNextRequest('change task text')",
 							"}",
 							""
@@ -327,7 +326,8 @@
 							"        console.log(response);",
 							"    });",
 							"})",
-							"//pm.environment.unset(\"token\");",
+							"",
+							"",
 							"",
 							"",
 							"",
@@ -383,7 +383,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "57275865-3d97-4caf-bc21-6632264a5b57",
+				"id": "7e61784e-f624-40df-8f50-198d19e12f03",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -393,7 +393,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "75639c55-e91b-46f6-929a-0b300f9010b9",
+				"id": "e86042f3-5c52-4023-92b9-5d09c33e4acf",
 				"type": "text/javascript",
 				"exec": [
 					""
